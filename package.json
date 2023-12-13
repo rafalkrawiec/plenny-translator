@@ -31,7 +31,7 @@
     },
     "scripts": {
         "dev": "vite build -m development --watch",
-        "build": "vite build && tail -n +3 src/extensions.ts >> dist/translator.d.ts"
+        "build": "vite build && tail -n +2 src/extensions.ts >> dist/translator.d.ts"
     },
     "devDependencies": {
         "@plenny/vite-externalizer": "^0.1.0",
