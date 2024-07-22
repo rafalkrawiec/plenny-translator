@@ -75,17 +75,18 @@ function extract(segments: string[], number: number) {
 }
 
 function extractFromString(part: string, number: number) {
-  let matches = part.match(/^[{[]([^[]{}]*)[}]](.*)/gs);
+  const regex = /^[\{\[]([^\[\]\{\}]*)[\}\]](.*)/s;
+  const matches = part.match(regex);
 
   if (!matches || matches.length !== 3) {
     return null;
   }
 
-  let condition = matches[1];
-  let value = matches[2];
+  const condition = matches[1];
+  const value = matches[2];
 
   if (condition.includes(',')) {
-    let [from, to] = condition.split(',', 2);
+    const [from, to] = condition.split(',', 2);
 
     if (to === '*' && number >= Number(from)) {
       return value;
@@ -100,7 +101,7 @@ function extractFromString(part: string, number: number) {
 }
 
 function stripConditions(segments: string[]) {
-  return segments.map((part) => part.replace(/^[{[]([^[]{}]*)[}]]/g, ''));
+  return segments.map(part => part.replace(/^[\{\[]([^\[\]\{\}]*)[\}\]]/, ''));
 }
 
 function makeReplacements(line: string, replace?: Record<string, string | number | boolean>) {
